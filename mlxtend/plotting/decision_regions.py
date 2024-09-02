@@ -15,7 +15,6 @@ import numpy as np
 
 from mlxtend.utils import check_Xy, format_kwarg_dictionaries
 
-
 def get_feature_range_mask(X, filler_feature_values=None, filler_feature_ranges=None):
     """
     Function that constucts a boolean array to get rid of samples
@@ -41,11 +40,9 @@ def get_feature_range_mask(X, filler_feature_values=None, filler_feature_ranges=
 
     return mask
 
-
 def parallel(X_predict, clf, xtype):
     Z = clf.predict(X_predict.astype(xtype))
     return Z
-
 
 def plot_decision_regions(
     X,
@@ -73,8 +70,8 @@ def plot_decision_regions(
 ):
     """Plot decision regions of a classifier.
 
-    Please note that this functions assumes that class labels are
-    labeled consecutively, e.g,. 0, 1, 2, 3, 4, and 5. If you have class
+    Please note that this function assumes that class labels are
+    labeled consecutively, e.g., 0, 1, 2, 3, 4, and 5. If you have class
     labels with integer labels > 4, you may want to provide additional colors
     and/or markers as `colors` and `markers` arguments.
     See https://matplotlib.org/examples/color/named_colors.html for more
@@ -240,7 +237,6 @@ def plot_decision_regions(
     colors = colors.split(",")
     colors_gen = cycle(colors)
     colors = [next(colors_gen) for c in range(n_classes)]
-
     # Get minimum and maximum
     x_min, x_max = (
         X[:, x_index].min() - 1.0 / zoom_factor,
@@ -275,6 +271,8 @@ def plot_decision_regions(
         Z = clf.predict(X_predict.astype(X.dtype))
         Z = Z.reshape(xx.shape)
     else:
+        if __name__ == '__main__':
+            mp.freeze_support()
         if n_jobs == -1:
             cpus = mp.cpu_count()
         else:
@@ -294,7 +292,7 @@ def plot_decision_regions(
         Z = np.concatenate(Z)
         Z = Z.reshape(xx.shape)
 
-    # Plot decisoin region
+    # Plot decision region
     # Make sure contourf_kwargs has backwards compatible defaults
     contourf_kwargs_default = {"alpha": 0.45, "antialiased": True}
     contourf_kwargs = format_kwarg_dictionaries(
